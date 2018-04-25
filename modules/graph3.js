@@ -101,4 +101,4 @@
 		} );
 	} );
 
-}( jQuery, mediaWiki, vg ) );
+}( jQuery, mediaWiki, vega ) );

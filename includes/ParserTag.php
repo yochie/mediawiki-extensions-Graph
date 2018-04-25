@@ -70,10 +70,9 @@ class ParserTag {
 			$output->setProperty( 'graph_specs', $ppValue );
 			$output->addTrackingCategory( 'graph-tracking-category', $title );
 
-			// We can only load one version of vega lib - either 1 or 2
-			// If the default version is 1, and if any of the graphs need Vega2,
-			// we treat all graphs as Vega2 and load corresponding libraries.
-			// All this should go away once we drop Vega1 support.
+			// We can only load one version of vega lib - either 1, 2 or 3
+			// Highest version used among all graphs on page is loaded
+			// All this should go away once we drop Vega1 and Vega2 support.
 
 			$liveSpecs = $output->getExtensionData( 'graph_live_specs' );
 			$interact = $output->getExtensionData( 'graph_interact' );
@@ -86,9 +85,10 @@ class ParserTag {
 			if ( $liveSpecs || $interact ) {
 				$output->addModuleStyles( 'ext.graph.styles' );
 				if ( $liveSpecs ) {
-					// Module: ext.graph.vega1, ext.graph.vega2
+					// Module: ext.graph.vega1, ext.graph.vega2, ext.graph.vega3
+
 					$output->addModules( 'ext.graph.vega' .
-						( $output->getExtensionData( 'graph_vega2' ) ? 2 : 1 ) );
+						( $output->getExtensionData( 'graph_vega3' ) ? 3 : ($output->getExtensionData( 'graph_vega2' ) ? 2 : 1 ) ) );
 					$output->addJsConfigVars( 'wgGraphSpecs', $liveSpecs );
 				} else {
 					$output->addModules( 'ext.graph.loader' );
@@ -163,11 +163,25 @@ class ParserTag {
 		// Figure out which vega version to use
 		global $wgGraphDefaultVegaVer;
 		if ( property_exists( $data, 'version' ) && is_numeric( $data->version ) ) {
-			$data->version = $data->version < 2 ? 1 : 2;
+
+            //Preserving support for non integer version numbers...
+            //TODO: Should probably round the version number instead...
+		    if ($data->version > 2){
+                $data->version =  3;
+            } else if ($data->version > 1) {
+                $data->version =  2;
+            } else {
+                $data->version = 1;
+            }
+
 		} else {
 			$data->version = $wgGraphDefaultVegaVer;
 		}
-		if ( $data->version === 2 ) {
+
+        //TODO:change to graph_vega_version with number as value, instead of flag
+        if ( $data->version === 3 ) {
+            $this->parserOutput->setExtensionData( 'graph_vega3', true );
+        } else if ( $data->version === 2 ) {
 			$this->parserOutput->setExtensionData( 'graph_vega2', true );
 		} else {
 			$this->parserOutput->setExtensionData( 'graph_specs_obsolete', true );

@@ -83,6 +83,23 @@
 				"desktop"
 			]
 		},
+		"ext.graph.vega3": {
+			"scripts": [
+				"lib/d3.js",
+				"lib/d3-global.js",
+				"lib/d3.layout.cloud.js",
+				"lib/vega3/vega.js",
+				"lib/graph3.compiled.js"
+			],
+			"dependencies": [
+				"ext.graph.data",
+				"mediawiki.Uri"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
 		"ext.graph.sandbox": {
 			"scripts": [
 				"lib/jquery.splitter/jquery.splitter.js",

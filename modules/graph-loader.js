@@ -13,7 +13,7 @@
 		function loadAndReplaceWithGraph( $el ) {
 			// TODO, Performance BUG: loading vega and calling api should happen in parallel
 			// Lazy loading dependencies
-			mw.loader.using( 'ext.graph.vega2', function () {
+			mw.loader.using( 'ext.graph.vega3', function () {
 				new mw.Api().get( {
 					formatversion: 2,
 					action: 'graph',

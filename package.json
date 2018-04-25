@@ -4,7 +4,7 @@
   "private": true,
   "description": "Build tools for the Graph-MediaWiki extension.",
   "scripts": {
-    "build-lib": "node_modules/.bin/browserify modules/graph2.js -o lib/graph2.compiled.js",
+    "build-lib": "node_modules/.bin/browserify modules/graph3.js -o lib/graph3.compiled.js",
     "test": "grunt test"
   },
   "manual-dev-Dependencies (fails to install in Jenkins, install manually)": {

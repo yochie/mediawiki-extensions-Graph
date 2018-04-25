@@ -50,15 +50,28 @@
 				"desktop"
 			]
 		},
-		"ext.graph.vega1": {
+		"ext.graph.d3": {
 			"scripts": [
 				"lib/d3.js",
 				"lib/d3-global.js",
+				"lib/d3.layout.cloud.js"
+			],
+			"dependencies": [
+				"mediawiki.Uri"
+			],
+			"targets": [
+				"mobile",
+				"desktop"
+			]
+		},
+		"ext.graph.vega1": {
+			"scripts": [
 				"lib/vega1/vega.js",
 				"modules/graph1.js"
 			],
 			"dependencies": [
 				"ext.graph.data",
+                "ext.graph.d3",
 				"mediawiki.Uri"
 			],
 			"targets": [
@@ -68,14 +81,12 @@
 		},
 		"ext.graph.vega2": {
 			"scripts": [
-				"lib/d3.js",
-				"lib/d3-global.js",
-				"lib/d3.layout.cloud.js",
 				"lib/vega2/vega.js",
 				"lib/graph2.compiled.js"
 			],
 			"dependencies": [
 				"ext.graph.data",
+                "ext.graph.d3",
 				"mediawiki.Uri"
 			],
 			"targets": [
@@ -85,14 +96,12 @@
 		},
 		"ext.graph.vega3": {
 			"scripts": [
-				"lib/d3.js",
-				"lib/d3-global.js",
-				"lib/d3.layout.cloud.js",
 				"lib/vega3/vega.js",
 				"lib/graph3.compiled.js"
 			],
 			"dependencies": [
 				"ext.graph.data",
+                "ext.graph.d3",
 				"mediawiki.Uri"
 			],
 			"targets": [

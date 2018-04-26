@@ -8,6 +8,7 @@
 	"globals": {
 		"ve": true,
 		"OO": false,
+		"vega": false,
 		"vg": false,
 		"mediaWiki": false,
 		"mw": false

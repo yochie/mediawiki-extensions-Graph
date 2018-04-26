@@ -7,7 +7,10 @@
 
 	// eslint-disable-next-line no-new
 	new VegaWrapper( {
-		datalib: vg.util,
+		data: {
+			load: vg.loader,
+			extend: vg.extend
+		},
 		useXhr: true,
 		isTrusted: mw.config.get( 'wgGraphIsTrusted' ),
 		domains: mw.config.get( 'wgGraphAllowedDomains' ),
@@ -69,17 +72,9 @@
 	 *
 	 * @param {HTMLElement} element
 	 * @param {Object|string} data graph spec
-	 * @param {Function} [callback] function(error) called when drawing is done
 	 */
-	mw.drawVegaGraph = function ( element, data, callback ) {
-		vg.parse.spec( data, function ( error, chart ) {
-			if ( !error ) {
-				chart( { el: element } ).update();
-			}
-			if ( callback ) {
-				callback( error );
-			}
-		} );
+	mw.drawVegaGraph = function ( element, data) {
+		vg.View(vg.parse(data)).logLevel(vega.Warn).renderer('canvas').initialize(element).hover().run();
 	};
 
 	mw.hook( 'wikipage.content' ).add( function ( $content ) {
@@ -92,11 +87,7 @@
 			if ( !specs.hasOwnProperty( graphId ) ) {
 				mw.log.warn( graphId );
 			} else {
-				mw.drawVegaGraph( this, specs[ graphId ], function ( error ) {
-					if ( error ) {
-						mw.log.warn( error );
-					}
-				} );
+				mw.drawVegaGraph( this, specs[ graphId ] );
 			}
 		} );
 	} );

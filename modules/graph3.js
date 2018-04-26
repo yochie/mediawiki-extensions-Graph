@@ -11,7 +11,6 @@
 			load: vg.loader,
 			extend: vg.extend
 		},
-		useXhr: true,
 		isTrusted: mw.config.get( 'wgGraphIsTrusted' ),
 		domains: mw.config.get( 'wgGraphAllowedDomains' ),
 		domainMap: false,
@@ -69,12 +68,14 @@
 
 	/**
 	 * Set up drawing canvas inside the given element and draw graph data
-	 *
 	 * @param {HTMLElement} element
 	 * @param {Object|string} data graph spec
 	 */
-	mw.drawVegaGraph = function ( element, data) {
-		vg.View(vg.parse(data)).logLevel(vega.Warn).renderer('canvas').initialize(element).hover().run();
+	mw.drawVegaGraph = function ( element, data ) {
+		var runtimeSpec = vg.parse( data );
+		var view = vg.View( runtimeSpec );
+		view.logLevel( vg.Warn );
+		view.renderer( 'canvas' ).initialize( element ).hover().run();
 	};
 
 	mw.hook( 'wikipage.content' ).add( function ( $content ) {

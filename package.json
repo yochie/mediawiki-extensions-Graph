@@ -7,9 +7,6 @@
     "build-lib": "node_modules/.bin/browserify modules/graph3.js -o lib/graph3.compiled.js",
     "test": "grunt test"
   },
-  "manual-dev-Dependencies (fails to install in Jenkins, install manually)": {
-    "vega": "git+https://github.com/nyurik/vega"
-  },
   "devDependencies": {
     "browserify": "^13.0.0",
     "eslint-config-wikimedia": "0.5.0",
@@ -23,6 +20,6 @@
     "mw-graph-shared": "^0.3.6",
     "stylelint": "8.2.0",
     "stylelint-config-wikimedia": "0.4.2",
-    "vega": "git+https://github.com/nyurik/vega"
+    "vega": "git+https://github.com/yochie/vega"
   }
 }

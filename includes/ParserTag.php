@@ -88,7 +88,8 @@ class ParserTag {
 					// Module: ext.graph.vega1, ext.graph.vega2, ext.graph.vega3
 
 					$output->addModules( 'ext.graph.vega' .
-						( $output->getExtensionData( 'graph_vega3' ) ? 3 : ($output->getExtensionData( 'graph_vega2' ) ? 2 : 1 ) ) );
+						( $output->getExtensionData( 'graph_vega3' ) ? 3 :
+							( $output->getExtensionData( 'graph_vega2' ) ? 2 : 1 ) ) );
 					$output->addJsConfigVars( 'wgGraphSpecs', $liveSpecs );
 				} else {
 					$output->addModules( 'ext.graph.loader' );
@@ -164,24 +165,24 @@ class ParserTag {
 		global $wgGraphDefaultVegaVer;
 		if ( property_exists( $data, 'version' ) && is_numeric( $data->version ) ) {
 
-            //Preserving support for non integer version numbers...
-            //TODO: Should probably round the version number instead...
-		    if ($data->version > 2){
-                $data->version =  3;
-            } else if ($data->version > 1) {
-                $data->version =  2;
-            } else {
-                $data->version = 1;
-            }
+			// Preserving support for non integer version numbers...
+			// TODO: Should probably round the version number instead...
+			if ( $data->version > 2 ) {
+				$data->version = 3;
+			} elseif ( $data->version > 1 ) {
+				$data->version = 2;
+			} else {
+				$data->version = 1;
+			}
 
 		} else {
 			$data->version = $wgGraphDefaultVegaVer;
 		}
 
-        //TODO:change to graph_vega_version with number as value, instead of flag
-        if ( $data->version === 3 ) {
-            $this->parserOutput->setExtensionData( 'graph_vega3', true );
-        } else if ( $data->version === 2 ) {
+		// TODO:change to graph_vega_version with number as value, instead of flag
+		if ( $data->version === 3 ) {
+			$this->parserOutput->setExtensionData( 'graph_vega3', true );
+		} elseif ( $data->version === 2 ) {
 			$this->parserOutput->setExtensionData( 'graph_vega2', true );
 		} else {
 			$this->parserOutput->setExtensionData( 'graph_specs_obsolete', true );

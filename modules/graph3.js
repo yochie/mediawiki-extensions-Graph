@@ -8,7 +8,7 @@
 	// eslint-disable-next-line no-new
 	new VegaWrapper( {
 		data: {
-			load: vg.loader,
+			loader: vg.loader,
 			extend: vg.extend
 		},
 		isTrusted: mw.config.get( 'wgGraphIsTrusted' ),
@@ -72,10 +72,17 @@
 	 * @param {Object|string} data graph spec
 	 */
 	mw.drawVegaGraph = function ( element, data ) {
-		var runtimeSpec = vg.parse( data );
-		var view = vg.View( runtimeSpec );
-		view.logLevel( vg.Warn );
-		view.renderer( 'canvas' ).initialize( element ).hover().run();
+		 
+		//vg.loader().load().then(function(someData) { render(data); });
+		var view;
+		function render(spec) {
+			view = new vg.View ( vg.parse(spec) )
+				.renderer( 'canvas' )
+				.initialize( element )
+				.hover()	
+				.run();
+		}
+		render(data);
 	};
 
 	mw.hook( 'wikipage.content' ).add( function ( $content ) {

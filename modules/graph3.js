@@ -6,10 +6,10 @@
 	var VegaWrapper = require( 'mw-graph-shared' );
 
 	// eslint-disable-next-line no-new
-	new VegaWrapper( {
+	var wrappedVega = new VegaWrapper({
 		data: {
-			loader: vg.loader,
-			extend: vg.extend
+			extend: vg.extend,
+			loader: vg.loader
 		},
 		isTrusted: mw.config.get( 'wgGraphIsTrusted' ),
 		domains: mw.config.get( 'wgGraphAllowedDomains' ),
@@ -76,8 +76,8 @@
 		//vg.loader().load().then(function(someData) { render(data); });
 		var view;
 		function render(spec) {
-			view = new vg.View ( vg.parse(spec) )
-				.renderer( 'canvas' )
+			view = new vg.View ( vg.parse(spec), {loader: wrappedVega.data.loader()} )
+				.renderer( 'svg' )
 				.initialize( element )
 				.hover()	
 				.run();

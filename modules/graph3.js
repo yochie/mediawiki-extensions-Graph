@@ -9,7 +9,7 @@
 	var wrappedVega = new VegaWrapper({
 		data: {
 			extend: vg.extend,
-			loader: vg.loader
+			loader: vg.loader()
 		},
 		isTrusted: mw.config.get( 'wgGraphIsTrusted' ),
 		domains: mw.config.get( 'wgGraphAllowedDomains' ),
@@ -17,16 +17,17 @@
 		logger: function ( warning ) {
 			mw.log.warn( warning );
 		},
-		parseUrl: function ( opt ) {
+		parseUrl: function ( url, opt ) {
 			// Parse URL
-			var uri = new mw.Uri( opt.url );
+			var uri = new mw.Uri( url );
+
 			// reduce confusion, only keep expected values
 			if ( uri.port ) {
 				uri.host += ':' + uri.port;
 				delete uri.port;
 			}
 			// If url begins with   protocol:///...  mark it as having relative host
-			if ( /^[a-z]+:\/\/\//.test( opt.url ) ) {
+			if ( /^[a-z]+:\/\/\//.test( url ) ) {
 				uri.isRelativeHost = true;
 			}
 			if ( uri.protocol ) {
@@ -60,7 +61,6 @@
 			}
 
 			uri.protocol = VegaWrapper.removeColon( uri.protocol );
-
 			return uri.toString();
 		},
 		languageCode: mw.config.get( 'wgUserLanguage' )

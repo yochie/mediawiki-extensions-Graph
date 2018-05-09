@@ -9,7 +9,8 @@
 	var wrappedVega = new VegaWrapper({
 		data: {
 			extend: vg.extend,
-			loader: vg.loader()
+			loader: vg.loader,
+			http: vg.loader().http
 		},
 		isTrusted: mw.config.get( 'wgGraphIsTrusted' ),
 		domains: mw.config.get( 'wgGraphAllowedDomains' ),
@@ -72,9 +73,7 @@
 	 * @param {Object|string} data graph spec
 	 */
 	mw.drawVegaGraph = function ( element, data ) {
-		 
-		//vg.loader().load().then(function(someData) { render(data); });
-		var view;
+		let view;
 		function render(spec) {
 			view = new vg.View ( vg.parse(spec), {loader: wrappedVega.data.loader()} )
 				.renderer( 'svg' )

@@ -3,7 +3,7 @@
 	'use strict';
 	/* global require */
 
-	var VegaWrapper = require( 'mw-graph-shared' );
+	var VegaWrapper = require( 'yochie-mw-graph-shared' );
 
 	// eslint-disable-next-line no-new
 	var wrappedVega = new VegaWrapper({
@@ -78,7 +78,7 @@
 			view = new vg.View ( vg.parse(spec), {loader: wrappedVega.data.loader()} )
 				.renderer( 'svg' )
 				.initialize( element )
-				.hover()	
+				.hover()
 				.run();
 		}
 		render(data);

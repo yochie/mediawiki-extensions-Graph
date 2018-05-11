@@ -4,8 +4,13 @@
   "private": true,
   "description": "Build tools for the Graph-MediaWiki extension.",
   "scripts": {
-    "build-lib": "node_modules/.bin/browserify modules/graph3.js -o lib/graph3.compiled.js",
+    "build-lib3": "node_modules/.bin/browserify modules/graph3.js -o lib/graph3.compiled.js",
+    "build-lib2": "node_modules/.bin/browserify modules/graph2.js -o lib/graph2.compiled.js",
     "test": "grunt test"
+  },
+  "manual-dev-Dependencies(build and copy vega.js to ./lib/vega<version>)": {
+    "vega3": "git://github.com/yochie/vega",
+    "vega": "git://github.com/nyurik/vega.git#master-2"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
@@ -19,7 +24,7 @@
     "jquery.splitter": "^0.20.1",
     "stylelint": "8.2.0",
     "stylelint-config-wikimedia": "0.4.2",
-    "vega": "git+https://github.com/yochie/vega",
-    "mw-graph-shared": "git+https://github.com/yochie/mw-graph-shared"
+    "mw-graph-shared": "^0.3.6",
+    "yochie-mw-graph-shared": "git+https://github.com/yochie/mw-graph-shared"
   }
 }
